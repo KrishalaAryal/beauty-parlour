@@ -21,73 +21,46 @@ export function Navigation() {
         isScrolled ? 'glass shadow-lg' : 'bg-transparent'
       }`}
     >
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          <Link to="/" className="font-playfair text-2xl font-bold text-foreground">
-            Glamour
+      <div className="container mx-auto px-4 flex items-center justify-between h-16">
+        {/* Logo */}
+        <Link to="/" className="font-playfair text-3xl font-extrabold text-foreground">
+          Glamour
+        </Link>
+
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center space-x-6">
+          <Link to="/" className="text-foreground hover:text-primary hover:scale-105 transition-transform font-medium">Home</Link>
+          <Link to="/services" className="text-foreground hover:text-primary hover:scale-105 transition-transform font-medium">Services</Link>
+          <Link to="/about" className="text-foreground hover:text-primary hover:scale-105 transition-transform font-medium">About</Link>
+          <Link to="/contact" className="text-foreground hover:text-primary hover:scale-105 transition-transform font-medium">Contact</Link>
+          <Link to="/login" className="px-5 py-2 bg-white text-rose-600 rounded-full shadow-lg hover:bg-rose-100 transition-all">
+            Login
           </Link>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-foreground hover:text-primary transition-colors">
-              Home
-            </Link>
-            <Link to="/services" className="text-foreground hover:text-primary transition-colors">
-              Services
-            </Link>
-            <Link to="/about" className="text-foreground hover:text-primary transition-colors">
-              About
-            </Link>
-            <Link to="/contact" className="text-foreground hover:text-primary transition-colors">
-              Contact
-            </Link>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-foreground"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
         </div>
 
-        {/* Mobile Navigation */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden glass absolute top-16 left-0 right-0 p-4 animate-slideUp">
-            <div className="flex flex-col space-y-4">
-              <Link
-                to="/"
-                className="text-foreground hover:text-primary transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Home
-              </Link>
-              <Link
-                to="/services"
-                className="text-foreground hover:text-primary transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Services
-              </Link>
-              <Link
-                to="/about"
-                className="text-foreground hover:text-primary transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                About
-              </Link>
-              <Link
-                to="/contact"
-                className="text-foreground hover:text-primary transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Contact
-              </Link>
-            </div>
-          </div>
-        )}
+        {/* Mobile Menu Button */}
+        <button
+          className="md:hidden text-foreground"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
       </div>
+
+      {/* Mobile Navigation */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden bg-[#5D1049] text-white absolute top-16 left-0 right-0 shadow-lg p-4 animate-slideUp">
+          <div className="flex flex-col space-y-4 text-center">
+            <Link to="/" className="text-white hover:text-primary transition-colors font-semibold" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
+            <Link to="/services" className="text-white hover:text-primary transition-colors font-semibold" onClick={() => setIsMobileMenuOpen(false)}>Services</Link>
+            <Link to="/about" className="text-white hover:text-primary transition-colors font-semibold" onClick={() => setIsMobileMenuOpen(false)}>About</Link>
+            <Link to="/contact" className="text-white hover:text-primary transition-colors font-semibold" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
+            <Link to="/login" className="block w-full py-2 bg-white text-rose-600 rounded-full shadow-md hover:bg-rose-100 transition-all" onClick={() => setIsMobileMenuOpen(false)}>
+              Login
+            </Link>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }

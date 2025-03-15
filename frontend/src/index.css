@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
-@import "tailwindcss";
 
 @tailwind base;
 @tailwind components;
@@ -52,8 +51,6 @@
   }
 }
 
-
-/* 
 @layer base {
   * {
     @apply border-border;
@@ -75,12 +72,12 @@
   font-family: 'Inter', sans-serif;
 }
 
-Smooth animations
+/* Smooth animations */
 .transition-all {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-Glass effect
+/* Glass effect */
 .glass {
   backdrop-filter: blur(16px) saturate(180%);
   background-color: rgba(255, 255, 255, 0.75);
@@ -88,4 +85,45 @@ Glass effect
 
 .dark .glass {
   background-color: rgba(17, 25, 40, 0.75);
-} */
+}
+
+/* Container styles for centering */
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Fix for login/signup centering */
+.flex.h-screen.w-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
