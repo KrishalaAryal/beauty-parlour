@@ -57,7 +57,7 @@ const About = () => {
                   image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9"
                 },
                 {
-                  name: "Rajiv Shrestha",
+                  name: "Nobody gurung",
                   role: "Skincare Specialist",
                   image: "https://images.unsplash.com/photo-1721322800607-8c38375eef04"
                 },
