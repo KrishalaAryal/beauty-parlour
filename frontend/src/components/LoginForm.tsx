@@ -8,6 +8,7 @@ import * as z from "zod";
 import toast from "react-hot-toast";
 import { loginApi } from "../utils/api";
 
+
 const loginSchema = z.object({
   email: z.string().email({
     message: "Please enter a valid email address",

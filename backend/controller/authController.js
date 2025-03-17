@@ -3,7 +3,8 @@ const UserModel = require("../models/userModel");
 const registerUser = async (req, res, next) => {
   try {
     const newUser = await UserModel.create(req.body);
-    return res.status(200).json({ message: newUser, success: true });
+    const { password, ...other } = newUser._doc;
+    return res.status(200).json({ message: other, success: true });
   } catch (error) {
     next(error);
   }
@@ -41,7 +42,7 @@ const logoutUser = async (req, res, next) => {
   try {
     req.session.destroy((err) => {
       if (!err) {
-        res.clearCookie("thrift.sid");
+        res.clearCookie("beautyparlour.sid");
         res.status(200).json({ message: "logged out" });
       } else {
         res.status(404).json({ message: "failed to logout" });
