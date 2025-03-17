@@ -1,11 +1,12 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
-import toast from "react-hot-toast"
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import toast from "react-hot-toast";
+import { loginApi } from "../utils/api";
 
 const loginSchema = z.object({
   email: z.string().email({
@@ -14,13 +15,13 @@ const loginSchema = z.object({
   password: z.string().min(1, {
     message: "Please enter your password",
   }),
-})
+});
 
-type LoginFormValues = z.infer<typeof loginSchema>
+type LoginFormValues = z.infer<typeof loginSchema>;
 
 function LoginForm() {
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const navigate = useNavigate()
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -32,31 +33,42 @@ function LoginForm() {
       email: "",
       password: "",
     },
-  })
+  });
 
   const onSubmit = async (data: LoginFormValues) => {
-    setIsLoading(true)
+    setIsLoading(true);
 
     try {
-      // Here you would typically call your API to authenticate the user
-      console.log("Login data:", data)
+      // Make API call to login
+      const response = await loginApi({
+        email: data.email,
+        password: data.password,
+      });
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      // Assuming your API returns some user data or token on successful login
+      console.log("Login response:", response.data);
+      toast.success("Login successful!");
 
-      toast.success("Login successful!")
-      navigate("/dashboard")
-    } catch (error) {
-      toast.error("Invalid credentials. Please try again.")
+      navigate("/");
+    } catch (error: any) {
+      // Handle different types of errors
+      const errorMessage =
+        error.response?.data?.message ||
+        "Invalid credentials. Please try again.";
+      toast.error(errorMessage);
+      console.log(errorMessage);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div className="space-y-2">
-        <label htmlFor="email" className="block text-sm font-medium text-gray-900">
+        <label
+          htmlFor="email"
+          className="block text-sm font-medium text-gray-900"
+        >
           Email
         </label>
         <input
@@ -66,11 +78,16 @@ function LoginForm() {
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
           placeholder="Enter your email"
         />
-        {errors.email && <p className="text-sm text-red-500">{errors.email.message}</p>}
+        {errors.email && (
+          <p className="text-sm text-red-500">{errors.email.message}</p>
+        )}
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="password" className="block text-sm font-medium text-gray-900">
+        <label
+          htmlFor="password"
+          className="block text-sm font-medium text-gray-900"
+        >
           Password
         </label>
         <input
@@ -80,7 +97,9 @@ function LoginForm() {
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
           placeholder="Enter your password"
         />
-        {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
+        {errors.password && (
+          <p className="text-sm text-red-500">{errors.password.message}</p>
+        )}
       </div>
 
       <button
@@ -90,9 +109,9 @@ function LoginForm() {
       >
         {isLoading ? "Logging in..." : "Login"}
       </button>
+      
     </form>
-  )
+  );
 }
 
-export default LoginForm
-
+export default LoginForm;

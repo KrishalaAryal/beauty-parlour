@@ -28,7 +28,7 @@ const Index = () => {
             Experience luxury beauty treatments and professional makeup services tailored just for you.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" asChild>
+            <Button size="lg" className=" bg-white/10 backdrop-blur-sm" asChild>
               <Link to="/services">Book Appointment</Link>
             </Button>
             <Button size="lg" variant="outline" className="bg-white/10 backdrop-blur-sm" asChild>

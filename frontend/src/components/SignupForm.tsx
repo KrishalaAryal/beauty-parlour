@@ -6,8 +6,9 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import toast from "react-hot-toast"
+import { signUpApi } from "../utils/api" 
 
-// Email regex that doesn't allow +-abc@gmail.com format
+
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
 
 const signupSchema = z
@@ -52,16 +53,22 @@ function SignupForm() {
     setIsLoading(true)
 
     try {
-      // Here you would typically call your API to register the user
-      console.log("Form data:", data)
+      
+      const response = await signUpApi({
+        username: data.username,
+        email: data.email,
+        password: data.password
+      })
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      console.log("Signup response:", response.data)
 
       toast.success("Account created successfully!")
       navigate("/login")
-    } catch (error) {
-      toast.error("Something went wrong. Please try again.")
+    } catch (error: any) {
+      // Handle different types of errors
+      const errorMessage = error.response?.data?.message || 
+                          "Something went wrong. Please try again."
+      toast.error(errorMessage)
     } finally {
       setIsLoading(false)
     }
@@ -136,4 +143,3 @@ function SignupForm() {
 }
 
 export default SignupForm
-
