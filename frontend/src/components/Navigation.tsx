@@ -1,8 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+import { ParlourContext } from "../context/Context";
 
 export function Navigation() {
+  const { state: { user } } = useContext(ParlourContext)
+
+  console.log(user)
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -29,13 +33,14 @@ export function Navigation() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-6">
-          <Link to="/" className="text-foreground hover:text-primary hover:scale-105 transition-transform font-medium">Home</Link>
-          <Link to="/services" className="text-foreground hover:text-primary hover:scale-105 transition-transform font-medium">Services</Link>
-          <Link to="/about" className="text-foreground hover:text-primary hover:scale-105 transition-transform font-medium">About</Link>
-          <Link to="/contact" className="text-foreground hover:text-primary hover:scale-105 transition-transform font-medium">Contact</Link>
-          <Link to="/login" className="px-5 py-2 bg-white text-rose-600 rounded-full shadow-lg hover:bg-rose-100 transition-all">
+          <Link to="/" className="text-[#c4c4c4] hover:text-primary hover:scale-105 transition-transform font-medium">Home</Link>
+          <Link to="/services" className="text-[#c4c4c4] hover:text-primary hover:scale-105 transition-transform font-medium">Services</Link>
+          <Link to="/about" className="text-[#c4c4c4] hover:text-primary hover:scale-105 transition-transform font-medium">About</Link>
+          <Link to="/contact" className="text-[#c4c4c4] hover:text-primary hover:scale-105 transition-transform font-medium">Contact</Link>
+          {user?<div><p>{user.username}</p></div>:  <Link to="/login" className="px-5 py-2 bg-white text-rose-600 rounded-full shadow-lg hover:bg-rose-100 transition-all">
             Login
-          </Link>
+          </Link>}
+         
         </div>
 
         {/* Mobile Menu Button */}
@@ -55,7 +60,7 @@ export function Navigation() {
             <Link to="/services" className="text-white hover:text-primary transition-colors font-semibold" onClick={() => setIsMobileMenuOpen(false)}>Services</Link>
             <Link to="/about" className="text-white hover:text-primary transition-colors font-semibold" onClick={() => setIsMobileMenuOpen(false)}>About</Link>
             <Link to="/contact" className="text-white hover:text-primary transition-colors font-semibold" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
-            <Link to="/login" className="block w-full py-2 bg-white text-rose-600 rounded-full shadow-md hover:bg-rose-100 transition-all" onClick={() => setIsMobileMenuOpen(false)}>
+            <Link to="/login"  className="block w-full py-2 bg-white text-rose-600 rounded-full shadow-md hover:bg-rose-100 transition-all" onClick={() => setIsMobileMenuOpen(false)}>
               Login
             </Link>
           </div>

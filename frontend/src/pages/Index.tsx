@@ -16,7 +16,7 @@ const Index = () => {
             backgroundImage: "url('https://www.avikalp.com/cdn/shop/products/MWZ3635_wallpaper4.jpg?v=1654843598')",
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            filter: 'brightness(0.7)',
+            filter: 'brightness(0.4)',
           }}
         />
         

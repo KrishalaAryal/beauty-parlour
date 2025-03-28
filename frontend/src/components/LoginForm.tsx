@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import toast from "react-hot-toast";
 import { loginApi } from "../utils/api";
+import { ParlourContext } from "../context/Context";
 
 
 const loginSchema = z.object({
@@ -21,6 +22,8 @@ const loginSchema = z.object({
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 function LoginForm() {
+
+  const {dispatch} = useContext(ParlourContext)
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -47,8 +50,10 @@ function LoginForm() {
       });
 
       // Assuming your API returns some user data or token on successful login
-      console.log("Login response:", response.data);
+      console.log("Login response:", response);
+
       toast.success("Login successful!");
+      dispatch({type:"addUser",payload:response.data.message})
 
       navigate("/");
     } catch (error: any) {
